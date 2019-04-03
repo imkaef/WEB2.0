@@ -1,20 +1,20 @@
 
-<input type="button" value="Жмякай01" onclick="runAjax('01.html')">
-<input type="button" value="Жмякай02" onclick="runAjax('02.html')">
-<input type="button" value="Жмякай03" onclick="runAjax('03.html')">
+<input type="button" value="Жмякай 01" onclick="runAjax('01.html')">
+<input type="button" value="Жмякай 02" onclick="runAjax('02.html')">
+<input type="button" value="Жмякай 03" onclick="runAjax('03.html')">
 <div id="out"></div>
 <body onload="checkHash()"/>
 <script>
 
     function runAjax(filename) {
         document.location.hash=filename;
-        var R= new XMLHttpRequest();
+        let R = new XMLHttpRequest();
         R.open("Get",filename,true);
         R.send();
         R.onload=function () {document.getElementById('out').innerHTML=R.responseText;}
     }
     function checkHash() {
-        var a=document.location.hash;
+        let a = document.location.hash;
         if (a.length>1) runAjax(a.substring(1))
     }
 

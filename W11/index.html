@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<script language="javascript">
+			let n = 1;
+			// читаем "Женитьбу" Гоголя
+			function runAjax(filename) {
+				let R = new XMLHttpRequest();
+				R.open("Get",filename,true);
+				R.send();
+				R.onload=function () {
+					document.getElementById('out').innerHTML+=R.responseText;
+					document.location.hash=filename;
+					n++;
+				}
+			}
+			function checkHash() {
+				let a = document.location.hash;
+				if (a.length>1) runAjax(a.substring(1))
+				if (n==1) runAjax("glava1.html")
+			}
+			function onScroll() {
+				let A = document.documentElement.clientHeight;
+				let B = document.documentElement.scrollTop;
+				let C = document.documentElement.scrollHeight;
+				if (C==Math.round(A+B)){
+					runAjax("glava"+n+".html")
+				}
+			}
+		</script>
+	</head>
+	<body onload="checkHash()" onscroll="onScroll()">
+	<div id="out"></div>
+		<pre id="myText">
+		</pre>
+	</body>
+</html>
