@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<script language="javascript">
-			let n = 1;
+			let n=0;
 			// читаем "Женитьбу" Гоголя
 			function runAjax(filename) {
 				let R = new XMLHttpRequest();
@@ -16,8 +16,19 @@
 			}
 			function checkHash() {
 				let a = document.location.hash;
-				if (a.length>1) runAjax(a.substring(1))
-				if (n==1) runAjax("glava1.html")
+				if (a==null){
+					console.log(a+"A=null")
+					n=1;
+					runAjax("glava1.html")
+				}else {
+					console.log(a+"A<>null")
+					let num = parseInt(a.replace(/\D+/g,""));
+					n=num;
+					if (a.length>1) runAjax(a.substring(1))
+				}
+				//let num = parseInt(a.replace(/\D+/g,""));
+				//if(n==0) runAjax("glava1.html")
+				//if (a.length>1) runAjax(a.substring(1))
 			}
 			function onScroll() {
 				let A = document.documentElement.clientHeight;
@@ -30,6 +41,7 @@
 		</script>
 	</head>
 	<body onload="checkHash()" onscroll="onScroll()">
+	<input type="button" value="Жмякай 01" onclick="runAjax('glava1.html')">
 	<div id="out"></div>
 		<pre id="myText">
 		</pre>
