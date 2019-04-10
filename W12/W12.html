@@ -1,0 +1,39 @@
+
+<input type="text" value="" onkeyup="myText(this.value)">
+
+<div id="out"></div>
+<body onload="checkHash()"/>
+<script>
+let s;
+let it
+    function runAjax(filename) {
+        let R = new XMLHttpRequest();
+        R.open("Get",filename,true);
+        R.send();
+
+        R.onload=function () {
+            s=R.responseText;
+            let re=new RegExp("^"+it+"\.*$","gmi")
+            let a=s.match(re)
+            s="";
+            for (let index = 0; index < a.length; index++) {
+                s+=a[index]+"<br>"
+            }
+            document.getElementById('out').innerHTML=s;
+
+
+        }
+    }
+    function checkHash() {
+        let a = document.location.hash;
+        if (a.length>1) runAjax(a.substring(1))
+    }
+    function myText(inputtext){
+        console.log(inputtext)
+        if (inputtext!=""){
+            it=inputtext
+            runAjax(inputtext[0]+".txt")
+        }
+    }
+
+</script>
